@@ -16,12 +16,42 @@ const App = () => {
     setTododata(del)
   };
 
+  const ImpTodo = (id) =>{
+    const index=tododata.findIndex(el=>el.id === id)
+    const todo=tododata[index]
+    const updTodo={...todo, important: !todo.important}
+    const before=tododata.slice(0, index)
+    const after=tododata.slice(index+1)
+    setTododata([...before, updTodo, ...after])  
+  }
+
+  const DoneTodo = (id) =>{
+    console.log(id);
+    const index=tododata.findIndex(el=>el.id === id)
+    const todo=tododata[index]
+    const updTodo={...todo, done: !todo.done}
+    console.log(updTodo);
+    const before=tododata.slice(0, index)
+    const after=tododata.slice(index+1)
+    setTododata([...before, updTodo, ...after])  
+  }
+  
+  
+  const addNewTodo=(text)=>{
+    let mapId = tododata.map(el=>el.id)
+    
+    const newTodo={title:text, important:false, done:false, id:mapId.at(-1)+1 || 1}
+    console.log(newTodo);
+    text=''
+    setTododata([...tododata, newTodo])
+  }
+
   return (
     <div style={{ width: 500 }} className='mx-auto'>
       <TodoHeader />
       <TodoSearch />
-      <TodoList tododata={tododata} Delete={Delete} />
-      <TodoAdd />
+      <TodoList tododata={tododata} Delete={Delete}  ImpTodo={ImpTodo} DoneTodo={DoneTodo}/>
+      <TodoAdd onAddTodo={addNewTodo} />
     </div>
   );
 };

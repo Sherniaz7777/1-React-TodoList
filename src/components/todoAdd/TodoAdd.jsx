@@ -24,7 +24,6 @@ export default class TodoAdd extends Component {
                 if (this.state.text.trim()) {
                   this.props.onAddTodo(this.state.text)
                   this.state.text=''
-                  
                 }
           }}
          >Add</button>
